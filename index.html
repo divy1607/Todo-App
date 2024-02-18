@@ -1,0 +1,27 @@
+<head>
+    <title>
+        TODO APP
+    </title>
+    <script>
+        function onPress() {
+            fetch("http://localhost:3000/todos", {
+                method : "GET"
+            }).then( (resp)=>{
+                resp.json().then( (data)=>{
+                    console.log(data);
+                });
+            })
+        }
+    </script>
+</head>
+
+<body>
+    Todo Title
+    <input type="text" id="title">
+    <br><br>
+    Todo description
+    <input type="text" id="description">
+    <br><br>
+    <button onClick="onPress()">send todo</button>
+
+</body>
