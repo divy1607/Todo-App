@@ -3,19 +3,85 @@
         TODO APP
     </title>
     <script>
-        function onPress() {
-            fetch("http://localhost:3000/todos", {
-                method : "POST",
-                body : JSON.stringify({
-                    title : "divyy",
-                    description : "codingggg"
-                }),
-                headers : {
+        function deleteTodo(id){
+            console.log(id);
+            fetch("http://localhost:3000/todos/" + id, {
+                method: "DELETE",
+                headers: {
                     "Content-Type": "application/json"
                 }
-            }).then( (resp)=>{
-                resp.json().then( (data)=>{
+            }).then( ()=>{
+                console.log("done delete");
+            })
+        }
+        function getData() {
+            fetch("http://localhost:3000/todos", {
+                method: "GET"
+            }).then((resp) => {
+                resp.json().then((data) => {
                     console.log(data);
+                    var parentElement = document.getElementById("mainArea");
+                    for (var i = 0; i < data.length; i++) {
+                        var childElement = document.createElement("div");
+
+                        var grandChildElement1 = document.createElement("span");
+                        grandChildElement1.innerHTML = data[i].title
+
+                        var grandChildElement2 = document.createElement("span");
+                        grandChildElement2.innerHTML = data[i].description
+
+                        var grandChildElement3 = document.createElement("button");
+                        grandChildElement3.innerHTML = "Delete"
+                        grandChildElement3.setAttribute("onClick", "deleteTodo(" + data[i].id +")")
+
+                        childElement.appendChild(grandChildElement1);
+                        childElement.appendChild(grandChildElement2);
+                        childElement.appendChild(grandChildElement3);
+
+                        parentElement.appendChild(childElement);
+                    }
+                    // parentElement.innerHTML = JSON.stringify(data);/
+
+                });
+            })
+        }
+
+        getData();
+
+        function onPress() {
+            var title = document.getElementById("title").value;
+            var description = document.getElementById("description").value;
+            console.log(title);
+            fetch("http://localhost:3000/todos", {
+                method: "POST",
+                body: JSON.stringify({
+                    title: title,
+                    description: description
+                }),
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            }).then((resp) => {
+                resp.json().then((data) => {
+                    console.log(data);
+                    var parentElement = document.getElementById("mainArea");
+                    var childElement = document.createElement("div");
+
+                    var grandChildElement1 = document.createElement("span");
+                    grandChildElement1.innerHTML = data.title
+
+                    var grandChildElement2 = document.createElement("span");
+                    grandChildElement2.innerHTML = data.description
+
+                    var grandChildElement3 = document.createElement("button");
+                    grandChildElement3.innerHTML = "Delete"
+
+                    childElement.appendChild(grandChildElement1);
+                    childElement.appendChild(grandChildElement2);
+                    childElement.appendChild(grandChildElement3);
+
+                    parentElement.appendChild(childElement);
+
                 });
             })
         }
@@ -30,5 +96,7 @@
     <input type="text" id="description">
     <br><br>
     <button onClick="onPress()">send todo</button>
-
+    <div id="mainArea">
+        hi there
+    </div>
 </body>
