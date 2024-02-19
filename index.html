@@ -3,14 +3,14 @@
         TODO APP
     </title>
     <script>
-        function deleteTodo(id){
+        function deleteTodo(id) {
             console.log(id);
             fetch("http://localhost:3000/todos/" + id, {
                 method: "DELETE",
                 headers: {
                     "Content-Type": "application/json"
                 }
-            }).then( ()=>{
+            }).then(() => {
                 console.log("done delete");
             })
         }
@@ -32,7 +32,7 @@
 
                         var grandChildElement3 = document.createElement("button");
                         grandChildElement3.innerHTML = "Delete"
-                        grandChildElement3.setAttribute("onClick", "deleteTodo(" + data[i].id +")")
+                        grandChildElement3.setAttribute("onClick", "deleteTodo(" + data[i].id + ")")
 
                         childElement.appendChild(grandChildElement1);
                         childElement.appendChild(grandChildElement2);
@@ -97,6 +97,6 @@
     <br><br>
     <button onClick="onPress()">send todo</button>
     <div id="mainArea">
-        hi there
+        my todos
     </div>
 </body>
