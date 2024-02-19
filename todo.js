@@ -5,8 +5,10 @@ const path = require("path");
 const { dirname } = require('path');
 
 const app = express();
+const cors = require("cors");
 
 app.use(bodyParser.json());
+app.use(cors());
 
 function findIndex(arr, id) {
   for (let i = 0; i < arr.length; i++) {
