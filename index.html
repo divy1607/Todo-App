@@ -11,7 +11,7 @@
                     "Content-Type": "application/json"
                 }
             }).then((resp) => {
-                resp.json().then( (data)=>{
+                resp.json().then((data) => {
                     console.log(data);
                     var parentElement = document.getElementById("mainArea");
                     var childElement = document.createElement("div");
@@ -24,6 +24,7 @@
 
                     var grandChildElement3 = document.createElement("button");
                     grandChildElement3.innerHTML = "Delete"
+                    grandChildElement3.setAttribute("onClick", "deleteTodo(" + data.id + ")")
 
                     childElement.removeChild(grandChildElement1);
                     childElement.removeChild(grandChildElement2);
@@ -31,7 +32,7 @@
 
                     parentElement.removeChild(childElement);
                 })
-               
+
             })
         }
         function getData() {
