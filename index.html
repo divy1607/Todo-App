@@ -10,8 +10,28 @@
                 headers: {
                     "Content-Type": "application/json"
                 }
-            }).then(() => {
-                console.log("done delete");
+            }).then((resp) => {
+                resp.json().then( (data)=>{
+                    console.log(data);
+                    var parentElement = document.getElementById("mainArea");
+                    var childElement = document.createElement("div");
+
+                    var grandChildElement1 = document.createElement("span");
+                    grandChildElement1.innerHTML = data.title
+
+                    var grandChildElement2 = document.createElement("span");
+                    grandChildElement2.innerHTML = data.description
+
+                    var grandChildElement3 = document.createElement("button");
+                    grandChildElement3.innerHTML = "Delete"
+
+                    childElement.removeChild(grandChildElement1);
+                    childElement.removeChild(grandChildElement2);
+                    childElement.removeChild(grandChildElement3);
+
+                    parentElement.removeChild(childElement);
+                })
+               
             })
         }
         function getData() {
@@ -19,6 +39,7 @@
                 method: "GET"
             }).then((resp) => {
                 resp.json().then((data) => {
+
                     console.log(data);
                     var parentElement = document.getElementById("mainArea");
                     for (var i = 0; i < data.length; i++) {
